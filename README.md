@@ -26,7 +26,7 @@ of revenue coming in by the end of this year. This information came as a surpris
 |  3 |      4 | Wii Sports Resort        | Wii        |   2009 | Sports       | Nintendo    |      15.75 |      11.01 |       3.28 |          2.96 |          33    |
 |  4 |      5 | Pokemon Red/Pokemon Blue | GB         |   1996 | Role-Playing | Nintendo    |      11.27 |       8.89 |      10.22 |          1    |          31.38 |
 
-To answer these questions, I pulled my data from a google dataset which in turn pulled it's information from the website [vgchartz](https://www.vgchartz.com), which tracked the physical global sales for over 16,598 video game releases starting in the year 1978 to the year 2017. It also contains sales per region, the genres of said games, as well as the platform on which it was sold.
+To answer these questions, I pulled my data from a ['google dataset'](https://data.world/julienf/video-games-global-sales-in-volume-1983-2017/workspace/file?filename=vgsalesGlobale.csv)  which in turn pulled it's information from the website [vgchartz](https://www.vgchartz.com), which tracked the physical global sales for over 16,598 video game releases starting in the year 1978 to the year 2017. It also contains sales per region, the genres of said games, as well as the platform on which it was sold. In terms of cleaning, I was extremely lucky  in terms of my data as there were very few null values narrowed down to two columns. 
 
 ![image](images/bar_over_time.png)
 
