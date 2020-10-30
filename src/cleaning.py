@@ -12,7 +12,7 @@ def check_for_nulls(df, columns):
         df - dataframe
         columns - index of columns
     RETURN:
-        Print statement with columns listed that have null values if there are any.
+        Dictionary with columns listed that have null values if there are any.
     '''
 
     true_values = {}
@@ -80,6 +80,8 @@ def user_input_replace_rows(df, first_column,  search_column, search, trials=10)
     
 
 if __name__ == '__main__':
+    ## Instansiates a dataframe, replaces the null values of two columns and replaces
+    ## the float values with integers. Finally saves to a csv file.
     df = pd.read_csv('../data/vgsalesGlobale.csv')
     replace_null_values(df, 'Publisher', "Unkown")
     replace_null_values(df, 'Year', 0)

@@ -6,16 +6,20 @@ from dataframe import *
 import matplotlib.pyplot as plt
 plt.style.use('ggplot')
 
-def drop_col(df, col, groupby = [], mod =sum):
-    if groupby == []:
-        new_df = df.drop(col, axis=1)
-    else:
-        new_df = df.drop(col, axis=1).groupby(groupby).sum()
-    return new_df
 
-def bar_graph_pandas_cheat(df, title, y_label, x_label, save_title, stack = True):
+def pandas_bar_cheat(df, title, y_label, x_label, save_title, stack = True):
     '''
     Uses the base of a pandas plot and updates it according to arguments
+
+    ARGS:
+        df - dataframe
+        title - string
+        y_label - string
+        x_label - string
+        save_title - string
+        stack - Boolean
+    RETURNS:
+        Bar Graph either stacked or unstacked
     '''
     ax = df.plot.bar(stacked = stack)
     ax.set_title(title, fontsize = 16)
@@ -27,12 +31,20 @@ def bar_graph_pandas_cheat(df, title, y_label, x_label, save_title, stack = True
     plt.savefig(save_title)
 
 def bar_graph(ax, df, x_col, y_col, title, ylabel, save_title):
+    '''
+    Creates a bar graph
+
+    ARGS:
+        ax - axes
+        df - dataframe
+        x_col - string
+        y_col - string
+        title - string
+        ylabel - string
+        save_title - string
+    '''
     x = range(0, len(df[x_col]))
-    if isinstance(y_col, str):
-        ax.bar(x, df[y_col](x))
-    else:
-        for item in y_col:
-            ax.bar(x, df[item])
+    ax.bar(x, df[y_col])
     ax.set_xticks(x)
     ax.set_xticklabels(df[x_col])
     ax.set_xlabel(x_col, fontsize = 16)
@@ -43,10 +55,17 @@ def bar_graph(ax, df, x_col, y_col, title, ylabel, save_title):
     fig.tight_layout()
     plt.savefig(save_title)
 
-def multiple_line_graphs(ax, df_dict, x_col, y_col):
+def multi_line_graphs(ax, df_dict, x_col, y_col):
     '''
-    Creates a 
+    Creates a graph with multiple lines on it
+
+    ARGS:
+        ax - axes
+        df - dataframe
+        x_col - string
+        y_col - string
     '''
+    
     x = range(0, len(df_dict[next(iter(df_dict))][x_col]))
     for key in df_dict.keys():
         y = df_dict[key][y_col]
@@ -62,10 +81,11 @@ def multiple_line_graphs(ax, df_dict, x_col, y_col):
 
 
 if __name__ == '__main__':
+    ## Instantiating the figures and axes for graphs
     fig, ax_line = plt.subplots(figsize = (18, 4))
     fig, ax_bar = plt.subplots(figsize = (20, 4))
     
-    ## Various objects instantiated for later plugging into dataframes.
+    ## Various objects instantiated for later plugging into functions to make dataframes
     df = pd.read_csv('../data/cleaned_data.csv')
     df['Global_Sales'] = df['NA_Sales'] + df['EU_Sales'] + df['JP_Sales'] + df['Other_Sales']
     genre_list_year = ['Genre', 'Year']
@@ -75,41 +95,36 @@ if __name__ == '__main__':
                 , 'Puzzle', 'Racing', 'Role-Playing', 'Shooter', 'Simulation', 'Sports', 'Strategy']
     interesting_genres = ['Action', 'Shooter', 'Sports', 'Role-Playing', 'Platform']
 
-    df_global_sales = create_dataframe_groupby(df, ['Year'], ['Global_Sales']).reset_index()
-    df_genres_years =  create_dataframe_groupby(df, genre_list_year, sort_list).reset_index()
-    df_genres_platform = create_dataframe_groupby(df, platform_list, sort_list).reset_index()
+    ##Instatiating multiple dataframes grouped by various lists made before
+    df_global_sales = df_group(df, ['Year'], ['Global_Sales']).reset_index()
+    df_genres_years =  df_group(df, genre_list_year, sort_list).reset_index()
+    df_genres_platform = df_group(df, platform_list, sort_list).reset_index()
 
-
-    df_genres_years_1 = df_genres_years[(df_genres_years['Year'] >= 2010) & (df_genres_years['Year'] < 2018)]
+    ##Mapping the dataframes to a specific range of years if needed
     df_genres_years = df_genres_years[(df_genres_years['Year'] >= 1991) & (df_genres_years['Year'] < 2016)]
+    df_genres_years_1 = df_genres_years[(df_genres_years['Year'] >= 2010) & (df_genres_years['Year'] < 2018)]
     df_global_sales = df_global_sales[(df_global_sales['Year'] >= 1950) & (df_global_sales['Year'] < 2016)]
 
-    df_genres = df_genres_years_1.drop(['Year', 'Global_Sales'], axis=1).groupby('Genre').sum()
-
-
+    ##Instanstiating my final dataframes to be graphed
+    df_genres = drop_col(df_genres_years_1, ['Year', 'Global_Sales'], ['Genre'])
     df_genres_platform = df_genres_platform[(df_genres_platform['Platform'] == 'XOne') 
                                             | (df_genres_platform['Platform'] == 'PS4') 
                                             | (df_genres_platform['Platform'] == 'WiiU')]
     df_genres_platform = drop_col(df_genres_platform, ['Global_Sales'])
     df_genres_platform = df_genres_platform.set_index('Platform')
-
-    
-    # df_genres.plot.bar()
-
     df_genres_years_global_sales = df_genres_years.drop(['NA_Sales', 'EU_Sales', 'JP_Sales', 'Other_Sales'], axis = 1)
-    genre_dataframes = create_multiple_dataframes(df_genres_years_global_sales, interesting_genres, 'Genre')
 
-    ## Creating the multiple graphs
-    multiple_line_graphs(ax_line, genre_dataframes, 'Year', 'Global_Sales')
-    bar_graph(ax_bar, df_global_sales, 'Year', 'Global_Sales', '# of Global Sales in Relation to Time' 
-            ,'# of Global Sales in The Millions', 'bar_over_time')
-    bar_graph(ax_bar, df_genres_platform, 'Platform', ['NA_Sales', 'EU_Sales', 'JP_Sales', 'Other_Sales']
-            , 'Console', '# of Sales in Millions', 'Console Sales in relation to Region', 'bar_console')
-    bar_graph_pandas_cheat(df_genres_platform, 'Video Game Sales by Region in Relation to Platform'
+    ##Creating a dictionary of dataframes for Genres to graph from
+    genre_dataframes = df_dict(df_genres_years_global_sales, interesting_genres, 'Genre')
+
+    ## Creating the multitude of graphs
+    multi_line_graphs(ax_line, genre_dataframes, 'Year', 'Global_Sales')
+    bar_graph(ax_bar, df_global_sales, 'Year', 'Global_Sales', '# of Global Sales in Relation to Time' ,'# of Global Sales in The Millions', 'bar_over_time')
+    pandas_bar_cheat(df_genres_platform, 'Video Game Sales by Region in Relation to Platform'
                             , '# of Video Game Sales Globally in Millions', 'Platforms', 'platforms')
-    bar_graph_pandas_cheat(df_genres, 'Sales of Video Games by Region in Relation to Genre'
+    pandas_bar_cheat(df_genres, 'Sales of Video Games by Region in Relation to Genre'
                             , '# of Sales for Video Games Globally in Millions', 'Genre', 'genre', False)
         
-    plt.show()
+    # plt.show()
 
-    print(df.head().to_markdown())
+    # print(df.head().to_markdown())
