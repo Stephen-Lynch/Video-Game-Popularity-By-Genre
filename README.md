@@ -27,7 +27,7 @@ it's cause is likely due to the massive rise in digital sales for both PC and Co
 are certainly still on the rise if we were to include digital sales. So with this in mind I will be focusing on the marketshare of these games and not necessarily the total amount of global sales.
 
 ## Most popular video game genres
-Line Chart Image
+![Genre_Over_Time](images/gen_over_time.png)
 
 As you can see, many genres have risen and fallen over the years. Platformers were considered the bees knees in the early 1990s, however as time has gone on they've struggled to perform as well as the behemoths that are Action games and Shooters.
 While both of these genres have there ups and downs, they both benefit from being rather flexible with both what the gameplay has to offer, as well as what you're looking to write in terms of your story. They also tend to be more accessible than a game within a 
