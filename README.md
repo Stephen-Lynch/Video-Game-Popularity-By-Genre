@@ -1,4 +1,4 @@
-# What Video Game Are You Making?
+# What Video Game Should You Be Making?
 ![image](images/videogames.jpg)
 
 ## Overview
