@@ -38,39 +38,3 @@ def create_multiple_dataframes(df, sort_list, sort):
     for item in sort_list:
         d[item] = df[df[sort] == item]
     return d  
-
-
-
-        
-if __name__ == '__main__':
-    df = pd.read_csv('../data/cleaned_data.csv')
-    df['Global_Sales'] = df['NA_Sales'] + df['EU_Sales'] + df['JP_Sales'] + df['Other_Sales']
-    genre_list_year = ['Genre', 'Year']
-    platform_list = ['Genre', 'Platform']
-    sort_list = [ 'NA_Sales', 'EU_Sales', 'JP_Sales', 'Other_Sales', 'Global_Sales']
-    genres = ['Action', 'Adventure', 'Fighting', 'Misc', 'Platform', 'Puzzle'
-                , 'Puzzle', 'Racing', 'Role-Playing', 'Shooter', 'Simulation', 'Sports', 'Strategy']
-    print(df.count())
-
-    # df_platforms = create_dataframe_groupby(df, platform_list, sort_list)
-    # df_platforms = df_platforms[df_platforms['Platform']]
-
-
-    # df_genres_years =  create_dataframe_groupby(df, genre_list_year, sort_list).reset_index()
-    
-    # df_genres_years = df_genres_years[(df_genres_years['Year'] >= 2000) & (df_genres_years['Year'] < 2013)]
-    # df_genres = df_genres_years.drop('Year', axis=1).groupby('Genre').sum()
-    
-    # genre_dataframes = create_multiple_dataframes(df_genres_years, genres, 'Genre')
-
-    # print(genre_dataframes['Action'])
-    
-
-    # df_genres_platform.plot.bar(stacked = True)
-    # df_genres.plot.bar()
-    # multiple_line_graphs(ax_line, genre_dataframes)
-    # bar_graph_over_time(ax_bar, df_global_sales)
-    # plt.show()
-    
-    
-    

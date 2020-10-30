@@ -62,8 +62,8 @@ def multiple_line_graphs(ax, df_dict, x_col, y_col):
 
 
 if __name__ == '__main__':
-    # fig, ax_line = plt.subplots(figsize = (18, 4))
-    fig, ax = plt.subplots(figsize = (20, 4))
+    fig, ax_line = plt.subplots(figsize = (18, 4))
+    fig, ax_bar = plt.subplots(figsize = (20, 4))
     
     ## Various objects instantiated for later plugging into dataframes.
     df = pd.read_csv('../data/cleaned_data.csv')
@@ -87,7 +87,8 @@ if __name__ == '__main__':
     df_genres = df_genres_years_1.drop(['Year', 'Global_Sales'], axis=1).groupby('Genre').sum()
 
 
-    df_genres_platform = df_genres_platform[(df_genres_platform['Platform'] == 'XOne') | (df_genres_platform['Platform'] == 'PS4') 
+    df_genres_platform = df_genres_platform[(df_genres_platform['Platform'] == 'XOne') 
+                                            | (df_genres_platform['Platform'] == 'PS4') 
                                             | (df_genres_platform['Platform'] == 'WiiU')]
     df_genres_platform = drop_col(df_genres_platform, ['Global_Sales'])
     df_genres_platform = df_genres_platform.set_index('Platform')
@@ -99,15 +100,16 @@ if __name__ == '__main__':
     genre_dataframes = create_multiple_dataframes(df_genres_years_global_sales, interesting_genres, 'Genre')
 
     ## Creating the multiple graphs
-    # multiple_line_graphs(ax_line, genre_dataframes, 'Year', 'Global_Sales')
-    # bar_graph_over_time(ax_bar, df_global_sales, 'Year', 'Global_Sales', '# of Global Sales in Relation to Time' 
-    # ,'# of Global Sales in The Millions', 'bar_over_time')
-    #bar_graph(ax_bar, df_genres_platform, 'Platform', ['NA_Sales', 'EU_Sales', 'JP_Sales', 'Other_Sales']
-    # , 'Console', '# of Sales in Millions', 'Console Sales in relation to Region', 'bar_console')
-    #bar_graph_pandas_cheat(df_genres_platform, 'Video Game Sales by Region in Relation to Platform'
-    # , '# of Video Game Sales Globally in Millions', 'Platforms', 'platforms')
-    # bar_graph_pandas_cheat(df_genres, 'Sales of Video Games by Region in Relation to Genre', '# of Sales for Video Games Globally in Millions', 'Genre', 'genre', False)
+    multiple_line_graphs(ax_line, genre_dataframes, 'Year', 'Global_Sales')
+    bar_graph(ax_bar, df_global_sales, 'Year', 'Global_Sales', '# of Global Sales in Relation to Time' 
+            ,'# of Global Sales in The Millions', 'bar_over_time')
+    bar_graph(ax_bar, df_genres_platform, 'Platform', ['NA_Sales', 'EU_Sales', 'JP_Sales', 'Other_Sales']
+            , 'Console', '# of Sales in Millions', 'Console Sales in relation to Region', 'bar_console')
+    bar_graph_pandas_cheat(df_genres_platform, 'Video Game Sales by Region in Relation to Platform'
+                            , '# of Video Game Sales Globally in Millions', 'Platforms', 'platforms')
+    bar_graph_pandas_cheat(df_genres, 'Sales of Video Games by Region in Relation to Genre'
+                            , '# of Sales for Video Games Globally in Millions', 'Genre', 'genre', False)
         
-    # plt.show()
+    plt.show()
 
     print(df.head().to_markdown())
