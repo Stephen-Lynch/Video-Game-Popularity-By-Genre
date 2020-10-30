@@ -21,14 +21,14 @@ def pandas_bar_cheat(df, title, y_label, x_label, save_title, stack = True):
     RETURNS:
         Bar Graph either stacked or unstacked
     '''
-    ax = df.plot.bar(stacked = stack)
+    ax = df.plot.bar(stacked = stack, color = ['b', 'y', 'm', 'k'])
     ax.set_title(title, fontsize = 16)
     ax.set_ylabel(y_label, fontsize = 16)
     ax.set_xlabel(x_label, fontsize = 16)
     ax.tick_params(axis='both', which='major', labelsize='12')
     fig.tight_layout()
     ax.legend(loc = 0, prop={'size': 20})
-    plt.savefig(save_title)
+    # plt.savefig(save_title)
 
 def bar_graph(ax, df, x_col, y_col, title, ylabel, save_title):
     '''
@@ -44,7 +44,7 @@ def bar_graph(ax, df, x_col, y_col, title, ylabel, save_title):
         save_title - string
     '''
     x = range(0, len(df[x_col]))
-    ax.bar(x, df[y_col])
+    ax.bar(x, df[y_col], color = 'b')
     ax.set_xticks(x)
     ax.set_xticklabels(df[x_col])
     ax.set_xlabel(x_col, fontsize = 16)
@@ -53,7 +53,7 @@ def bar_graph(ax, df, x_col, y_col, title, ylabel, save_title):
     ax.tick_params(axis='both', which='major', labelsize='12')
     ax.legend()
     fig.tight_layout()
-    plt.savefig(save_title)
+    # plt.savefig(save_title)
 
 def multi_line_graphs(ax, df_dict, x_col, y_col):
     '''
@@ -77,7 +77,7 @@ def multi_line_graphs(ax, df_dict, x_col, y_col):
     ax.set_title('Genre Popularity in Relation to Time', fontsize = 18)
     ax.legend(loc = 2)
     fig.tight_layout()
-    plt.savefig('gen_over_time')
+    # plt.savefig('../images/gen_over_time.png')
 
 
 if __name__ == '__main__':
@@ -125,6 +125,6 @@ if __name__ == '__main__':
     pandas_bar_cheat(df_genres, 'Sales of Video Games by Region in Relation to Genre'
                             , '# of Sales for Video Games Globally in Millions', 'Genre', 'genre', False)
         
-    # plt.show()
+    plt.show()
 
     # print(df.head().to_markdown())
