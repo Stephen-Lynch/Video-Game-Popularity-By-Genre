@@ -106,6 +106,8 @@ if __name__ == '__main__':
     # , 'Console', '# of Sales in Millions', 'Console Sales in relation to Region', 'bar_console')
     #bar_graph_pandas_cheat(df_genres_platform, 'Video Game Sales by Region in Relation to Platform'
     # , '# of Video Game Sales Globally in Millions', 'Platforms', 'platforms')
-    bar_graph_pandas_cheat(df_genres, 'Sales of Video Games by Region in Relation to Genre', '# of Sales for Video Games Globally in Millions', 'Genre', 'genre', False)
+    # bar_graph_pandas_cheat(df_genres, 'Sales of Video Games by Region in Relation to Genre', '# of Sales for Video Games Globally in Millions', 'Genre', 'genre', False)
         
-    plt.show()
+    # plt.show()
+
+    print(df.head().to_markdown())
