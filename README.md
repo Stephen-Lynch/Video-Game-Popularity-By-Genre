@@ -1,8 +1,6 @@
 # What Video Game Are You Making?
 ![image](images/videogames.jpg)
 
-Capstone 1 Project for Galvanize.
-
 ## Overview
 
 ![image](images/revenue.jpg) [source](newzoo.com/globalgamesreport)
