@@ -5,7 +5,7 @@ Capstone 1 Project for Galvanize.
 
 ## Overview
 
-![image](images/revenue.jpg) source newzoo.com/globalgamesreport
+![image](images/revenue.jpg) [source](newzoo.com/globalgamesreport)
 
 The video game market has recently become the most lucrative form of entertainment, with an estimated 159.3 billion dollars 
 of revenue coming in by the end of this year. This information came as a surprise to me since video games were sort of a shunned activity when I was growing up, always being linked to things such as gun violence and laziness. Since that's apparently done a 180 in terms of how popular they've become, and how mainstream they currently are, I wanted to find out where you should start if you wanted to create a video game developing studio and answer some of the questions that came to mind, such as:
